@@ -31,8 +31,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.o.order.entity.PaytmDetailPojo;
 import com.paytm.pg.merchant.PaytmChecksum;
+import com.drugs.exception.CustomException;
 import com.o.order.entity.Address;
+import com.o.order.entity.Drugs;
 import com.o.order.entity.Order;
+import com.o.order.repository.DrugsRepository;
 import com.o.order.repository.OrderRepository;
 import com.o.order.service.OrderService;
 import com.o.order.service.PaymentService;
@@ -54,6 +57,9 @@ public class OrderController{
 
 	@Autowired
 	private OrderRepository repository;
+	
+	@Autowired
+	private DrugsRepository drugsRepository;
 
 	
 	@GetMapping("/get")  
@@ -66,7 +72,12 @@ public class OrderController{
 	public List<Order> getOrdersByUserId(@PathVariable("userId") String userId)   
 	{  
 	return orderService.getOrdersById(userId);  
-	}  
+	}
+	
+	@GetMapping("/getName")
+	public List<Drugs> getDrugs() {
+		return drugsRepository.findAll();
+	}
 	
 	@GetMapping("/{orderId}")
 	public Order getOrderById(@PathVariable("orderId") String orderId) {
@@ -90,11 +101,16 @@ public class OrderController{
 	public Order saveBook(@RequestBody Order books)   throws Exception
 	{  
 		return orderService.saveOrUpdate(books);  
-	}  
+	}
+	
+	@PutMapping("/drugsUpdate/{id}")
+	public Drugs updateDrugsDetails(@RequestBody Drugs drugs, @PathVariable("id") String drugsId) throws Exception {
+		return orderService.updateDrugsDetails(drugs, drugsId);
+	}
 	
 	//creating put mapping that updates the user    
 	@PutMapping("/put")  
-	public Order update(@RequestBody Order books)   
+	public Order update(@RequestBody Order books) throws Exception   
 	{  
 		orderService.saveOrUpdate(books);  
 	return books;  
