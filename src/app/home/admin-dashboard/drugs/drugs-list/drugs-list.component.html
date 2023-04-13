@@ -1,0 +1,139 @@
+
+<div style="display: flex; flex-grow: grow; margin: 5px;" *ngIf="isLoggedIn">
+
+    <app-nav></app-nav>
+    <div class="tab" >
+        <div class="mt-10" >
+          <h1>Drugs List</h1>
+          <div *ngFor="let drug  of DrugsDetails | paginate: { itemsPerPage: count, currentPage: p }">
+          <table class="table table-bordered" *ngFor="let j of drug.productImages">
+            <thead class="thead">
+              <tr >
+                <th>Drugs Id</th>
+                <th>Drugs Name</th>
+                <th>Drugs Price</th>
+                <th>Stoc kQty</th>
+                <th>Drugs Description</th>
+                <th>Supplier Name</th>
+                <th>Image</th>
+                <th>Edit</th>
+                <th>Delete</th>
+    
+              </tr>
+            </thead>
+            <tbody  class="tbody">
+              <tr>
+                <td>{{drug.drugsId}}</td>
+                <td>{{drug.drugsName}}</td>
+                <td>{{drug.drugsPrice}}</td>
+                <td>{{drug.stockQty}}</td>
+                <td>{{drug.drugsDescription}}</td>
+                <td>{{drug.supplierName}}</td>
+                <td><img [src]="j.picByte | safeUrl" class="img-fluid thumbnail-image" ></td>
+                <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="edit(drug)">Edit</button></td>
+                <td><button type="button" class="btn btn-danger" (click)="confirmDelete(drug)">Delete</button></td>
+
+              </tr>
+         
+              
+            </tbody>
+          </table>
+          </div>
+          <div class="text-right">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </div>
+        </div>
+        </div>
+    
+    
+
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="2" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Update Drugs</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+  
+          <div class="card" style="padding: 20px;">
+            <form #updatedForm="ngForm" (ngSubmit)="updatedForm.form.valid && updateDrugs(updatedForm)">
+              <div class="form-group">
+                <label for="drugsId">drugsId :</label>
+                <input type="text" #drugsId [(ngModel)]="DrugsToUpdate.drugsId" name="drugsId" id="drugsId" class="form-control" placeholder="drugsId" readonly>
+              
+              </div>
+              <div class="form-group">
+                <label for="drugsName">drugsName :</label>
+                <input type="text" #drugsName="ngModel" [(ngModel)]="DrugsToUpdate.drugsName" name="drugsName" id="drugsName" class="form-control"
+                  placeholder="drugsName"  required>
+                  <span class="text-danger"
+                                *ngIf="(drugsName.touched || updatedForm.submitted) && drugsName.errors?.['required']">
+                                DrugsName is required
+                            </span>
+              </div>
+              <div class="form-group">
+                <label for="drugsCost">drugsCost :</label>
+                <input type="drugsCost" #drugsCost="ngModel" [(ngModel)]="DrugsToUpdate.drugsCost" name="drugsCost" id="drugsCost" class="form-control"
+                  placeholder="drugsCost" required>
+                  <span class="text-danger"
+                  *ngIf="(drugsCost.touched || updatedForm.submitted) && drugsCost.errors?.['required']">
+                  DrugsCost is required
+              </span>
+              </div>
+              <div class="form-group">
+                <label for="stockQty">StockQty :</label>
+                <input type="stockQty" #stockQty="ngModel" [(ngModel)]="DrugsToUpdate.stockQty" name="stockQty" id="stockQty" class="form-control"
+                  placeholder="stockQty">
+                  <span class="text-danger"
+                  *ngIf="(stockQty.touched || updatedForm.submitted) && stockQty.errors?.['required']">
+                  Stock Qty is required
+              </span>
+              </div>
+    
+              <div class="form-group">
+                <label for="drugsDescription">drugsDescription :</label>
+                <input type="drugsDescription" #drugsDescription [(ngModel)]="DrugsToUpdate.drugsDescription" name="drugsDescription" id="drugsDescription" class="form-control"
+                  placeholder="drugsDescription">
+              </div>
+    
+              <div class="form-group">
+                <label for="supplierName">supplierName :</label>
+                <input type="supplierName" #supplierName="ngModel" [(ngModel)]="DrugsToUpdate.supplierName" name="supplierName" id="supplierName" class="form-control"
+                  placeholder="supplierName">
+                  <span class="text-danger"
+                  *ngIf="(supplierName.touched || updatedForm.submitted) && supplierName.errors?.['required']">
+                  Supplier Name is required
+              </span>
+              </div>
+
+              <!-- <div class="form-group">
+                <label for="supplierName">Image :</label>
+                <input type="supplierName" #supplierName="ngModel" [(ngModel)]="DrugsToUpdate.productImages.picByte" name="supplierName" id="supplierName" class="form-control"
+                  placeholder="supplierName">
+                  <span class="text-danger"
+                  *ngIf="(supplierName.touched || updatedForm.submitted) && supplierName.errors?.['required']">
+                  Supplier Name is required
+              </span>
+              </div>
+     -->
+              <div class="form-group">
+                <input type="submit" value="Update" class="btn btn-danger w-100">
+              </div>
+            </form>
+            </div>
+        </div>
+      </div>
+    </div>
+ </div>
+
+
+
+
+
+

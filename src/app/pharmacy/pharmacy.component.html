@@ -1,0 +1,105 @@
+
+ <!-- <mat-toolbar class="mat-elevation-z8">
+
+  <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
+      <mat-icon *ngIf="!sidenav.opened">
+          menu
+      </mat-icon>
+      <mat-icon *ngIf="sidenav.opened">
+          close
+      </mat-icon>
+
+
+  </button>
+  </mat-toolbar> -->
+
+  <div style="display: flex; flex-grow: grow; margin: 0px;">
+  
+    <mat-sidenav-container>
+      <mat-sidenav #sidenav="matSidenav">
+     
+        <img class="avatar mat-elevation-z8" src="/assets/img/logo.png" height="300"/>
+  
+  
+          <mat-divider></mat-divider>
+          <button mat-button class="menu-button" *ngIf="showUserBoard">
+            <a  routerLink="/myorders">
+                <span class="icon"><img src="/assets/img/order1.png" alt="Home" width="50" height="50"/></span>
+               
+                <span class="text">My Orders</span>
+            </a>
+          </button><br><br>
+          
+          <button mat-button class="menu-button" *ngIf="showAdminBoard">
+            <a  routerLink="/api/user-auth/admin">
+            <span class="icon"> <img src="/assets/img/dashboard.png" alt="Dashboard"/></span>
+           
+            <span class="text">Dashboard</span>
+        </a>
+          </button><br><br><br>
+          <button mat-button class="menu-button" *ngIf="isLoggedIn">
+            <a  routerLink="/cart" >
+                <span class="icon"> <img src="/assets/img/cart.png" alt="Cart"/></span>
+               
+                <span class="text">Cart</span>
+            </a>
+          </button><br><br>
+  
+          <button mat-button class="menu-button" *ngIf="!isLoggedIn">
+            <a  routerLink="/login" >
+              <span class="icon"> <img src="/assets/img/login.png" alt="Cart"/></span>
+               
+                <span class="text">SIGN IN</span>
+            </a>
+          </button><br><br>
+          <button mat-button class="menu-button" *ngIf="!isLoggedIn">
+            <a  routerLink="/register" >
+              <span class="icon"> <img src="/assets/img/register.png" alt="Cart"/></span>
+               
+                <span class="text">SIGN UP</span>
+            </a>
+          </button><br>
+          
+          <button mat-button class="menu-button" *ngIf="isLoggedIn">
+            <a href   (click)="logout()">
+                <span class="icon" ><img src="/assets/img/login.png" alt="Logout"/></span>
+               
+                <span class="text">Logout</span>
+            </a>
+          </button>
+      </mat-sidenav>
+  
+    </mat-sidenav-container>
+
+    <div class="img">
+      <div class="shop">
+        <span  class="h1">
+          <h1>GET MEDS</h1></span>
+        <button class="button btn" (click)="shop()">Shop Now</button>
+      </div>
+      </div>
+
+
+  </div>
+  
+  <h2 class="second-pg">
+    CATEGORIES
+  </h2>
+  <div class="middle" >
+    <!-- <div class="col-4" *ngFor="let a of arr1">
+      <p>Categories: {{a.categories}}</p>
+      </div> -->
+     <a  class="cat">
+       <div class="card" *ngFor="let a of arr1">
+        <div class="card-body" >
+          <h5 class="card-title">{{a.categories}}</h5>
+        </div>
+        <button class="but-on" (click)="cat(a)">click here!</button>
+      </div></a>
+      <div class="button-area">
+               
+        <button type="button" class="prev" appCatPrev>
+          <i class="fas fa-angle-left fa-2x"></i></button>
+        <button type="button" class="next" appCatNext><i class="fas fa-angle-right fa-2x"></i></button>
+      </div>
+  </div>

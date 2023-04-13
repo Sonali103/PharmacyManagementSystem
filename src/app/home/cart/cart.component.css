@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@300&display=swap');
+
+
+
+  .outer {
+    height: 60px;
+    display: block;
+}
+
+.card{
+  width: 80%;
+  margin-left: 60px;
+}
+
+
+
+.cont h1{
+  color: black;
+  white-space: nowrap;
+  letter-spacing: 3px;
+  font-family: 'Saira Condensed', sans-serif;
+}
+
+.badge-light{
+  color: black;
+}

@@ -1,0 +1,162 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:weight@100;200;300;400;500;600;700;800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@300&display=swap');
+/* @import "~material-icons/iconfont/material-icons.css"; */
+
+
+mat-toolbar{
+  
+  height: 80px;
+  width: 100%;
+  background-color: #E8E8E8;
+  overflow: hidden;
+  
+}
+
+       .height{
+        height: 20vh;
+       }
+       
+       .second-pg{
+        margin: 50px 250px;
+        letter-spacing: 2rem;
+      }
+
+      .cont img{
+        border-radius: 50%;
+      }
+      
+      .example-spacer {
+        flex: 1 1 auto;
+      }
+
+      .home{
+        color: black;
+      }
+       .search{
+       position: relative;
+       box-shadow: 0 0 40px rgba(51, 51, 51, .1);
+         
+       }
+
+       .search input{
+        height: 60px;
+        text-indent: 25px;
+        border: 2px solid #d6d4d4;
+
+
+       }
+
+       .app-nav{
+         margin-top:1px;
+       }
+
+       .search input:focus{
+
+        box-shadow: none;
+        border: 2px solid blue;
+
+
+       }
+
+       .search .fa-search{
+
+        position: absolute;
+        top: 20px;
+        left: 16px;
+
+       }
+
+       .middle{
+        position: relative;
+        height: 220px;
+
+      }
+
+
+      .link{ 
+        text-decoration: none;
+           }
+      
+      .text{
+        position: relative;
+          color: black;
+          font-weight: 700;
+          font-size: 1.1em;
+          
+         
+      }
+
+      .cat{
+        display:flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 80px;
+      }
+      
+
+      .middle .card{
+        background-color: rgba(203,230,229,1);
+        text-align: center;
+        width: 150px;
+        height: 200px;
+       
+      
+      }
+
+      .user{
+        bottom: 0px;
+        font-size: 10px;
+      }
+      
+      .card-title{
+        text-align: center;
+        margin: 20%;
+      }
+      
+      .middle a{
+        text-decoration: none;
+        color: black;
+      }
+      
+      .but-on{
+        font-family: 'Courier New', Courier, monospace;
+        color: black;
+        border: transparent;
+        height: 45px;
+      }
+      
+      .button-area{
+        border: 1px solid white;
+      }
+      
+      .prev{
+        background-color: transparent;
+        position: absolute;
+        margin-left: 5px;
+      top: 40%;
+      transform: translate(-50%, -50%);
+        border: 1px solid transparent;
+      }
+      .next{
+        background-color: transparent;
+        position: absolute;
+      right: -23px;
+      top: 40%;
+      transform: translate(-50%, -50%);
+        border: 1px solid transparent;
+      }
+
+
+      .sub-container{
+        margin: 55px 0 0 3px;
+      }
+
+      .menu-button .icon img{
+        font-size: 15px;
+        height: 30px;
+      }
+
+      .modal-dialog{
+        width: 1050px;
+        margin: auto;
+      }

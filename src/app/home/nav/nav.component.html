@@ -1,0 +1,85 @@
+<!-- <mat-toolbar class="mat-elevation-z8">
+
+  <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
+      <mat-icon *ngIf="!sidenav.opened">
+          menu
+      </mat-icon>
+      <mat-icon *ngIf="sidenav.opened">
+          close
+      </mat-icon>
+  </button>
+  </mat-toolbar> -->
+  
+  <mat-sidenav-container>
+      <mat-sidenav #sidenav="matSidenav">
+        <a routerLink="/profile" >
+          <img class="avatar mat-elevation-z8" src="../../assets/img/avatar.png">
+        </a>
+        <h4 *ngIf="this.roles[0] === 'ROLE_ADMIN'; else user">Hi, {{this.currentUser|uppercase}}</h4>
+        <ng-template #user>
+          <h4>Hi, {{this.currentUser|uppercase}}</h4>
+        </ng-template>        
+          <mat-divider></mat-divider>
+          <button mat-button class="menu-button">
+            <a routerLink="/"><span class="text">Home</span>
+              <span class="icon"><img src="/assets/img/home.png" alt="Home"/></span>
+            </a>
+          </button>
+          <mat-divider></mat-divider>
+          <button mat-button class="menu-button" *ngIf="showAdminBoard">
+          <a routerLink="/api/user-auth/admin">
+            <span class="icon"> <img src="/assets/img/dashboard.png" alt="Dashboard"/></span>           
+            <span class="text">Dashboard</span>
+          </a>
+          </button><br><br>
+          <button mat-button class="menu-button">    
+            <a routerLink="/order-details" *ngIf="showAdminBoard">
+                <span class="icon"><img src="/assets/img/order.png" alt="Order"/></span>               
+                <span class="text">Orders</span>
+            </a>
+          </button><br><br>
+          <button mat-button class="menu-button">   
+            <a routerLink="/users" *ngIf="showAdminBoard">
+                <span class="icon"><img src="/assets/img/user.png" alt="User"/></span>               
+                <span class="text">Users</span>
+            </a>
+          </button><br><br>
+          <button mat-button class="menu-button">
+            <a  routerLink="/cart" >
+                <span class="icon"><img src="/assets/img/cart.png" alt="Cart"/></span>               
+                <span class="text">Cart</span>
+            </a>
+          </button><br><br>
+          <button mat-button class="menu-button" *ngIf="showAdminBoard">
+            <a routerLink="/supplier">
+                <span class="icon"><img src="/assets/img/list.png" width="50"/></span>               
+                <span class="text">Supplier</span>
+            </a>
+        </button><br><br>
+        <button mat-button class="menu-button" *ngIf="showAdminBoard">
+         <a routerLink="/supplier-list">
+          <span class="icon"><li style="color:black; margin-left: 35px;"></li></span>         
+          <span class="text">Supplier List</span>
+         </a>
+        </button><br><br>
+        <button mat-button class="menu-button" *ngIf="showAdminBoard">
+            <a  routerLink="/drugs">
+                <span class="icon"> <img src="/assets/img/add.png" alt="User DashBoard" height="40"/></span>               
+                <span class="text">Add Drugs</span>
+            </a>
+          </button><br><br>
+          <button mat-button class="menu-button" *ngIf="showAdminBoard">
+            <a  routerLink="/drugs/drugs-list" >
+                <span class="icon"><li style="color:black; margin-left: 35px;"></li></span>               
+                <span class="text">Drugs List</span>
+            </a>
+          </button><br><br>        
+          <button mat-button class="menu-button" *ngIf="isLoggedIn">
+            <a href (click)="logout()">
+              \
+                <span class="icon" ><img src="/assets/img/login.png" alt="Logout"/></span>               
+                <span class="text">Logout</span>
+            </a>
+          </button>
+      </mat-sidenav>
+  </mat-sidenav-container>

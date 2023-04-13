@@ -1,0 +1,211 @@
+
+<div style="display: flex; flex-grow: grow; margin: 1px;">
+  <app-nav *ngIf="isLoggedIn"></app-nav>
+  <div class="card text-center" *ngIf="isLoggedIn">
+    <div class="card-header">
+      Your Cart Items
+      <button type="button" class="btn btn-sm btn-warning float-right">
+          Total items <span class="badge badge-light">{{this.items}}</span>        
+      </button>
+      <button type="button" class="btn btn-sm btn-danger mr-2 float-right" (click)="confirmDelete()">
+         Empty Cart       
+      </button>
+    </div>
+    <div class="card-body">  
+      <table class="table">
+        <thead>
+          <tr>
+            <div hidden>
+              <th scope="col" >UserName</th>
+              <th scope="col">Cart Id</th>
+              <th scope="col">Product Id</th>  
+            </div>
+            <th scope="col">Product Name</th>
+            <th scope="col">Product Description</th>
+            <th scope="col">Price</th>
+            <th scope="col">Qty</th>
+            <th scope="col" style="visibility: hidden">Stock Qty</th>
+            <th scope="col">Total</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+           
+          
+          </tr>
+          <tr *ngFor="let i of cartList">
+            <div hidden>
+            <td>{{i.username}}</td>
+            <td>{{i.cartId}}</td>
+            <td>{{i.drugsId}}</td>
+            </div>
+            <td>{{i.drugsName}}</td>
+            <td>{{i.drugsDescription}}</td>
+            <td>{{i.drugsCost}}</td>
+            <td>
+              
+             {{i.drugsQty}}
+            </td>
+            <td style="visibility: hidden">{{i.stockQty}}</td>
+            <td>{{i.total}}</td>
+            <td>
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="edit(i)">Edit</button> &nbsp;
+              <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="delete()">Delete</button>
+
+            </td>
+          </tr>
+          
+          </tbody>
+      </table>
+    
+      <div  *ngIf="cartList.length<1">
+        <img src="/assets/img/empty.jpg"/>
+      </div>
+       
+        <button type="button" (click)="addToOrder(cartList)" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#amount"  *ngIf="isLoggedIn && cartList.length > 0">Checkout</button>
+    </div>
+    
+  </div>
+
+</div>
+  
+
+
+
+  
+<!-- Modal for Checkout  -->
+<div class="modal fade" id="amount" tabindex="-1" data-bs-keyboard="false" data-bs-backdrop="static" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cart details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="refresh()"></button>
+      </div>
+      <div class="modal-body">
+
+        <div class="card mt-5" style="padding: 20px;">
+          <h3>Your Total Amount is {{this.cartAmount}}</h3>
+          </div>
+      </div><br>
+      
+      <table class="table table-striped" *ngIf="address.length>=1">
+        <thead>
+          <tr>
+            <th scope="col">Address</th>
+            <th scope="col">Email</th>
+            <th scope="col">PinCode</th>
+            <th scope="col">Contact No</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let data of address">
+          <tr>
+            <th scope="row">{{data.address}}</th>
+            <td>{{data.email}}</td>
+            <td>{{data.pincode}}</td>
+            <td>{{data.contactNo}}</td>
+
+           
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <a href="/order" class="btn btn-sm btn-primary" *ngIf="address.length>=1">Continue with the above address</a>
+      <br><p style="margin-left: 50%;" *ngIf="address.length>=1">OR</p>
+      <a href="/billing" class="btn btn-sm btn-primary" *ngIf="address.length<1">Click here to Proceed</a>
+      <a href="/billing" class="btn btn-sm btn-primary" *ngIf="address.length>=1">Go for the new billing Address</a>
+    </div>
+  </div>
+</div>
+
+
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Update Cart</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+  
+          <div class="card mt-5" style="padding: 20px;">
+            <form #updatedForm="ngForm" (ngSubmit)="updateCart(updatedForm)">
+              <div class="form-group">
+                <div hidden>
+                <div class="form-group">
+                  <label for="username">User Name :</label>
+                  <input type="username" #username [(ngModel)]="CartToUpdate.username" name="username" id="username" class="form-control"
+                    placeholder="username" readonly>
+                </div>
+                <div class="form-group">
+                  <label for="cartId">Cart Id :</label>
+                  <input type="cartId" #cartId [(ngModel)]="CartToUpdate.cartId" name="cartId" id="cartId" class="form-control"
+                    placeholder="cartId" readonly>
+                </div>
+                <div class="form-group">
+                  <label for="drugsId">Drugs Id :</label>
+                  <input type="drugsId" #drugsId [(ngModel)]="CartToUpdate.drugsId" name="drugsId" id="drugsId" class="form-control"
+                    placeholder="drugsId" readonly>
+                </div>
+                <div class="form-group">
+                  <label for="drugsName">drugs Name :</label>
+                  <input type="drugsName" #drugsName [(ngModel)]="CartToUpdate.drugsName" name="drugsName" id="drugsName" class="form-control"
+                    placeholder="drugsName" readonly>
+                </div>
+                <div class="form-group">
+                  <label for="drugsDescription">drugs Description</label>
+                  <input type="drugsDescription" #drugsDescription [(ngModel)]="CartToUpdate.drugsDescription" name="drugsDescription" id="drugsDescription" class="form-control"
+                    placeholder="drugsDescription" readonly>
+                </div>
+                <div class="form-group">
+                <label for="drugsCost">drug Cost :</label>
+                <input type="drugsCost" #drugsCost [(ngModel)]="CartToUpdate.drugsCost" name="drugsCost" id="drugsCost" class="form-control"
+                  placeholder="drugsCost" readonly>
+              </div>
+              </div>
+              <div class="form-group">
+                <label for="drugsQty">drug Qty :</label>
+                <input type="drugsQty" #drugsQty [(ngModel)]="CartToUpdate.drugsQty" name="drugsQty" id="drugsQty" class="form-control"
+                  placeholder="drugsQty">
+              </div>
+              <div class="form-group" hidden>
+                <label for="stockQty">Stock Qty :</label>
+                <input type="stockQty" #stockQty [(ngModel)]="CartToUpdate.stockQty" name="stockQty" id="stockQty" class="form-control"
+                  placeholder="drugsQty">
+              </div>
+              <div class="form-group" hidden>
+                <label for="total">Total :</label>
+                <input type="total" #total [(ngModel)]="CartToUpdate.total" name="total" id="total" class="form-control"
+                  placeholder="total" readonly>
+              </div>
+    
+              <div class="form-group">
+                <input type="submit" value="Update" class="btn btn-danger w-100">
+              </div>
+              </div>
+            </form>
+            </div>
+        </div>
+      </div>
+    </div>
+ </div>
+
+
+
+
+  <!-- // click)="emptyCart()" *ngIf="cart.cartItemsList && cart.cartTotal" -->
+
+  <!-- *ngIf="cart.cartItemsList && cart.cartTotal" -->
+  <!-- {{cart.cartTotal}} -->
+
+
+  <!-- (keyup)="changeQty(itm.pid,qtyRef.value,'replace')" -->
+
+  <!-- (click)="changeQty(itm.pid,-1,'')" -->
+
+  <!-- (click)="changeQty(itm.pid,1,'')" -->
+
+  <!-- *ngFor="let itm of cart.cartItemsList  -->
